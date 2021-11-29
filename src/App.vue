@@ -1,28 +1,44 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <ag-grid-vue
+    style="width: 500px; height: 500px"
+    class="ag-theme-alpine"
+    :columnDefs="columnDefs"
+    :rowData="rowData"
+  >
+  </ag-grid-vue>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { AgGridVue } from "ag-grid-vue";
 
 export default {
-  name: 'App',
+  name: "App",
+  data() {
+    return {
+      columnDefs: null,
+      rowData: null,
+    };
+  },
   components: {
-    HelloWorld
-  }
-}
+    AgGridVue,
+  },
+  beforeMount() {
+    this.columnDefs = [
+      { field: "make" },
+      { field: "model" },
+      { field: "price" },
+    ];
+
+    this.rowData = [
+      { make: "Toyota", model: "Celica", price: 35000 },
+      { make: "Ford", model: "Mondeo", price: 32000 },
+      { make: "Porsche", model: "Boxter", price: 72000 },
+    ];
+  },
+};
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-alpine.css";
 </style>
