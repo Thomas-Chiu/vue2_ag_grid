@@ -2,6 +2,7 @@
   <ag-grid-vue
     style="width: 500px; height: 500px"
     class="ag-theme-alpine"
+    rowSelection="multiple"
     :columnDefs="columnDefs"
     :rowData="rowData"
   >
@@ -10,6 +11,7 @@
 
 <script>
 import { AgGridVue } from "ag-grid-vue";
+import axios from "axios";
 
 export default {
   name: "App",
@@ -24,16 +26,25 @@ export default {
   },
   beforeMount() {
     this.columnDefs = [
-      { field: "make" },
-      { field: "model" },
-      { field: "price" },
+      {
+        field: "make",
+        sortable: true,
+        filter: true,
+        checkboxSelection: true,
+      },
+      { field: "model", sortable: true, filter: true },
+      { field: "price", sortable: true, filter: true },
     ];
-
-    this.rowData = [
-      { make: "Toyota", model: "Celica", price: 35000 },
-      { make: "Ford", model: "Mondeo", price: 32000 },
-      { make: "Porsche", model: "Boxter", price: 72000 },
-    ];
+  },
+  mounted() {
+    axios
+      .get("https://www.ag-grid.com/example-assets/row-data.json")
+      .then((res) => {
+        this.rowData = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 };
 </script>
