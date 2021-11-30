@@ -1,6 +1,6 @@
 <template>
   <ag-grid-vue
-    style="width: 500px; height: 500px"
+    style="width: 75%; height: 95%"
     class="ag-theme-alpine"
     rowSelection="multiple"
     :columnDefs="columnDefs"
@@ -12,39 +12,44 @@
 <script>
 import { AgGridVue } from "ag-grid-vue";
 import axios from "axios";
+import colomnDefs from "./assets/colomnDefs.json";
+import getData from "./assets/tdxApi.js";
 
 export default {
   name: "App",
-  data() {
-    return {
-      columnDefs: null,
-      rowData: null,
-    };
-  },
   components: {
     AgGridVue,
   },
+  data() {
+    return {
+      columnDefs: [],
+      rowData: [],
+    };
+  },
   beforeMount() {
-    this.columnDefs = [
-      {
-        field: "make",
-        sortable: true,
-        filter: true,
-        checkboxSelection: true,
-      },
-      { field: "model", sortable: true, filter: true },
-      { field: "price", sortable: true, filter: true },
-    ];
+    this.columnDefs = colomnDefs.data;
   },
   mounted() {
-    axios
-      .get("https://www.ag-grid.com/example-assets/row-data.json")
+    getData("https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station")
       .then((res) => {
-        this.rowData = res.data;
+        res.data.forEach((value, index) => {
+          this.rowData.push({
+            編號: index + 1,
+            縣市: value.LocationCity,
+            區域: value.LocationTown,
+            站名: value.StationName.Zh_tw,
+            "站名 (英)": value.StationName.En,
+            代號: value.StationUID,
+            地址: value.StationAddress,
+            電話: value.StationPhone,
+          });
+        });
       })
       .catch((err) => {
         console.log(err);
       });
+
+    // rowData=
   },
 };
 </script>
@@ -52,4 +57,12 @@ export default {
 <style lang="scss">
 @import "~ag-grid-community/dist/styles/ag-grid.css";
 @import "~ag-grid-community/dist/styles/ag-theme-alpine.css";
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
 </style>
