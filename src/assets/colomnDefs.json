@@ -2,9 +2,9 @@
   "data": [
     {
       "field": "編號",
-      "width": 90,
       "sortable": true,
       "filter": true,
+      "rowDrag": true,
       "checkboxSelection": true
     },
     { "field": "縣市", "sortable": true, "filter": true },
