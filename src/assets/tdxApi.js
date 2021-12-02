@@ -21,8 +21,8 @@ const getAuthorizationHeader = () => {
   return { Authorization: Authorization, "X-Date": GMTString };
 };
 
-export default (url) => {
-  return axios.get(url, {
+export default async (url) => {
+  return await axios.get(url, {
     headers: getAuthorizationHeader(),
   });
 };

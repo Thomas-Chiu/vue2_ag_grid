@@ -1,18 +1,16 @@
 {
   "data": [
     {
-      "field": "編號",
-      "sortable": true,
-      "filter": true,
+      "field": "id",
       "rowDrag": true,
       "checkboxSelection": true
     },
-    { "field": "縣市", "sortable": true, "filter": true },
-    { "field": "區域", "sortable": true, "filter": true },
-    { "field": "站名", "sortable": true, "filter": true },
-    { "field": "站名 (英)", "sortable": true, "filter": true },
-    { "field": "代號", "sortable": true, "filter": true },
-    { "field": "地址", "sortable": true, "filter": true },
-    { "field": "電話", "sortable": true, "filter": true }
+    { "field": "縣市" },
+    { "field": "區域" },
+    { "field": "站名" },
+    { "field": "站名 (英)" },
+    { "field": "UID" },
+    { "field": "地址", "minWidth": 300 },
+    { "field": "電話" }
   ]
 }
